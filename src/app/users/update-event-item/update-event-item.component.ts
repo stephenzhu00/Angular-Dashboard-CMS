@@ -31,12 +31,6 @@ export class UpdateEventItemComponent implements OnInit {
   ngOnInit() {
       this.id = this.route.snapshot.params['id'];
       this.isAddMode = !this.id;
-      
-      // password not required in edit mode
-      const passwordValidators = [Validators.minLength(6)];
-      if (this.isAddMode) {
-          passwordValidators.push(Validators.required);
-      }
 
       this.form = this.formBuilder.group({
           firstName: ['', Validators.required],
@@ -51,18 +45,22 @@ export class UpdateEventItemComponent implements OnInit {
       });
 
       if (!this.isAddMode) {
-        this.eventItem = this.apiService.getEventById(this.id);
-        this.form.patchValue({
-          firstName:this.eventItem.title,
-          lastName:this.eventItem.artist,
-          price:this.eventItem.price,
-          URLVideo:this.eventItem.id,
-          address:this.eventItem.address,
-          addressDetail:this.eventItem.addressDetail,
-          eventDetail:this.eventItem.showDetail,
-
+        this.eventItem = this.apiService.getEventById(this.id).subscribe((data)=>{
+          console.log("MASUK");
+          this.eventItem = data;
+          console.log(this.eventItem);
+          this.form.patchValue({
+            firstName:this.eventItem.title,
+            lastName:this.eventItem.artist,
+            price:this.eventItem.price,
+            URLVideo:this.eventItem.id,
+            address:this.eventItem.address,
+            addressDetail:this.eventItem.addressDetail,
+            eventDetail:this.eventItem.showDetail,
+  
+          });
         });
-        console.log(this.eventItem);
+        // console.log(this.eventItem);
       }
   }
 
@@ -87,17 +85,5 @@ export class UpdateEventItemComponent implements OnInit {
     // TODO SOON TO BE ADD
     this.alertService.success('Update successful', { keepAfterRouteChange: true });
     this.router.navigate(['../../'], { relativeTo: this.route });
-      // this.accountService.update(this.id, this.form.value)
-      //     .pipe(first())
-      //     .subscribe({
-      //         next: () => {
-      //             this.alertService.success('Update successful', { keepAfterRouteChange: true });
-      //             this.router.navigate(['../../'], { relativeTo: this.route });
-      //         },
-      //         error: error => {
-      //             this.alertService.error(error);
-      //             this.loading = false;
-      //         }
-      //     });
   }
 }

@@ -17,7 +17,10 @@ export class EventsListComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.event_items= this.apiService.getEvents();
+    this.apiService.getEvents().subscribe((data)=>{
+      console.log(data);
+      this.event_items = data;
+    });
   }
 
   deleteItem(id: string) {

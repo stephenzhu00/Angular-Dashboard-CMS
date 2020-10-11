@@ -31,14 +31,19 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class RequestBandComponent implements AfterViewInit {
   displayedColumns: string[] = ['position', 'name', 'bandName','createdDate','expiredDate', 'status'];
-  request_list = this.apiService.getRequests();
-  dataSource = new MatTableDataSource(this.request_list);
+  dataSource=null;
+  request_list = this.apiService.getRequests().subscribe((data)=>{
+    console.log(data);
+    this.dataSource = data;
+  });
+  // dataSource = new MatTableDataSource(this.request_list);
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private apiService:ApiServicesService){
+  constructor(private apiService: ApiServicesService){
   }
+  // tslint:disable-next-line: typedef
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EventItems } from '../EventItems';
 import { RequestBand } from '../RequestBand';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,18 +9,18 @@ import { RequestBand } from '../RequestBand';
 export class ApiServicesService {
   events_list;
   requests_list;
-  constructor() { 
+  constructor(private httpClient:HttpClient) { 
     this.events_list = EventItems;
     this.requests_list = RequestBand;
   }
 
   getEvents(){
-    return this.events_list;
+    return this.httpClient.get('http://localhost:8085/hack');
   }
   getEventById(eventId){
-    return this.events_list.find(x => x.id == eventId);
+    return this.httpClient.get('http://localhost:8085/hack/' +(eventId -1));
   }
   getRequests(){
-    return this.requests_list;
+    return this.httpClient.get('http://localhost:8085/request');
   }
 }
