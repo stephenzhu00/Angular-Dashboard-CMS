@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
 import { AccountService } from '../../_services/account.service';
 import { AlertService } from '../../_services/alert.service';
 import { ApiServicesService } from '../../_helpers/api-services.service';
@@ -45,10 +44,8 @@ export class UpdateEventItemComponent implements OnInit {
       });
 
       if (!this.isAddMode) {
-        this.eventItem = this.apiService.getEventById(this.id).subscribe((data)=>{
-          console.log("MASUK");
+        this.eventItem = this.apiService.getEventById(this.id).subscribe((data)=>{        
           this.eventItem = data;
-          console.log(this.eventItem);
           this.form.patchValue({
             eventTitle:this.eventItem.title,
             eventArtist:this.eventItem.artist,
@@ -68,22 +65,16 @@ export class UpdateEventItemComponent implements OnInit {
 
   onSubmit() {
       this.submitted = true;
-      console.log("SUBMITTED31");
-      // reset alerts on submit
       this.alertService.clear();
-
-      // stop here if form is invalid
       if (this.form.invalid) {
           return;
       }
-
       this.loading = true;
       this.updateUser();
   }
   private updateUser() {
     this.alertService.success('Update successful', { keepAfterRouteChange: true });
     this.router.navigate(['../../'], { relativeTo: this.route });
-    console.log(this.form.value);
     this.apiService.updateEvent(this.form.value.id, this.form.value).subscribe();
   }
 }
