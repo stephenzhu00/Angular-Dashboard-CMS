@@ -4,6 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 import { ListComponent } from './list.component';
 import { AddEditComponent } from './add-edit.component';
+import { AddEventItemComponent } from './add-event-item/add-event-item.component';
+import { UpdateEventItemComponent } from './update-event-item/update-event-item.component';
+import { EventsListComponent } from './events-list/events-list.component';
+import { RequestBandComponent } from './request-band/request-band.component';
 
 const routes: Routes = [
     {
@@ -11,7 +15,11 @@ const routes: Routes = [
         children: [
             { path: '', component: ListComponent },
             { path: 'add', component: AddEditComponent },
-            { path: 'edit/:id', component: AddEditComponent }
+            { path: 'edit/:id', component: AddEditComponent },
+            { path: 'events', component:EventsListComponent},
+            { path: 'events/add',component:AddEventItemComponent},
+            { path: 'events/update/:id',component:UpdateEventItemComponent},
+            { path: 'request',component:RequestBandComponent}
         ]
     }
 ];

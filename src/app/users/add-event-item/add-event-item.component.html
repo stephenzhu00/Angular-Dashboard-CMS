@@ -1,0 +1,89 @@
+<h1 *ngIf="isAddMode">Add Event</h1>
+<h1 *ngIf="!isAddMode">Edit Event</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="firstName">Event Name</label>
+            <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                <div *ngIf="f.firstName.errors.required">Event Name is required</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="lastName">Event Artist</label>
+            <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+            </div>
+        </div>
+    </div>
+    <!-- EDIT -->
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="timeStart">Time Start</label>
+            <input type="datetime-local" formControlName="timeStart" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.timeStart.errors }" />
+            <div *ngIf="submitted && f.timeStart.errors" class="invalid-feedback">
+                <div *ngIf="f.timeStart.errors.required">Event Name is required</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="timeStop">Time Stop</label>
+            <input type="datetime-local" formControlName="timeStop" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.timeStop.errors }" />
+            <div *ngIf="submitted && f.timeStop.errors" class="invalid-feedback">
+                <div *ngIf="f.timeStop.errors.required">Last Name is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="price">Price</label>
+            <input type="text" formControlName="price" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" />
+            <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                <div *ngIf="f.price.errors.required">price is required</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="URLVideo">URL Video</label>
+            <input type="text" formControlName="URLVideo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.URLVideo.errors }" />
+            <div *ngIf="submitted && f.URLVideo.errors" class="invalid-feedback">
+                <div *ngIf="f.URLVideo.errors.required">URLVideo is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="address">address</label>
+            <input type="text" formControlName="address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
+            <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                <div *ngIf="f.address.errors.required">address is required</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="addressDetail">
+                addressDetail
+            </label>
+            <input type="textarea" formControlName="addressDetail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.addressDetail.errors }" />
+            <div *ngIf="submitted && f.addressDetail.errors" class="invalid-feedback">
+                <div *ngIf="f.addressDetail.errors.required">addressDetail is required</div>
+                <div *ngIf="f.addressDetail.errors.minlength">addressDetail must be at least 6 characters</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="eventDetail">Event Detail</label>
+            <input type="text" formControlName="eventDetail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.eventDetail.errors }" />
+            <div *ngIf="submitted && f.eventDetail.errors" class="invalid-feedback">
+                <div *ngIf="f.eventDetail.errors.required">eventDetail is required</div>
+            </div>
+        </div>
+       
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Save
+        </button>
+        <a routerLink="/users" class="btn btn-link">Cancel</a>
+    </div>
+</form>

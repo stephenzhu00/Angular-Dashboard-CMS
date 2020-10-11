@@ -10,7 +10,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
-import { HomeComponent } from './home';
+import { HomeComponent } from './home';;
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
     imports: [
@@ -18,6 +19,8 @@ import { HomeComponent } from './home';
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule
+,
+        NoopAnimationsModule
     ],
     declarations: [
         AppComponent,
