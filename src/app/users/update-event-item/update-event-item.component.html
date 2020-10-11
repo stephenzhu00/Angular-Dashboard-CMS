@@ -3,17 +3,17 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-row">
         <div class="form-group col">
-            <label for="firstName">Event Name</label>
-            <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                <div *ngIf="f.firstName.errors.required">Event Name is required</div>
+            <label for="eventTitle">Event Name</label>
+            <input type="text" formControlName="eventTitle" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.eventTitle.errors }" />
+            <div *ngIf="submitted && f.eventTitle.errors" class="invalid-feedback">
+                <div *ngIf="f.eventTitle.errors.required">Event Name is required</div>
             </div>
         </div>
         <div class="form-group col">
-            <label for="lastName">Event Artist</label>
-            <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
-            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-                <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+            <label for="eventArtist">Event Artist</label>
+            <input type="text" formControlName="eventArtist" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.eventArtist.errors }" />
+            <div *ngIf="submitted && f.eventArtist.errors" class="invalid-feedback">
+                <div *ngIf="f.eventArtist.errors.required">Event Artist required</div>
             </div>
         </div>
     </div>
@@ -23,14 +23,14 @@
             <label for="timeStart">Time Start</label>
             <input type="datetime-local" formControlName="timeStart" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.timeStart.errors }" />
             <div *ngIf="submitted && f.timeStart.errors" class="invalid-feedback">
-                <div *ngIf="f.timeStart.errors.required">Event Name is required</div>
+                <div *ngIf="f.timeStart.errors.required">Time Start is required</div>
             </div>
         </div>
         <div class="form-group col">
             <label for="timeStop">Time Stop</label>
             <input type="datetime-local" formControlName="timeStop" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.timeStop.errors }" />
             <div *ngIf="submitted && f.timeStop.errors" class="invalid-feedback">
-                <div *ngIf="f.timeStop.errors.required">Last Name is required</div>
+                <div *ngIf="f.timeStop.errors.required">Time Stop is required</div>
             </div>
         </div>
     </div>

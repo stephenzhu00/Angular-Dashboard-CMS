@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
 import { AccountService } from '../../_services/account.service';
 import { AlertService } from '../../_services/alert.service';
 import { ApiServicesService } from '../../_helpers/api-services.service';
@@ -33,27 +32,27 @@ export class AddEventItemComponent implements OnInit {
       this.isAddMode = !this.id;
 
       this.form = this.formBuilder.group({
-          firstName: ['', Validators.required],
-          lastName: ['', Validators.required],
+          title: ['', Validators.required],
+          artist: ['', Validators.required],
           timeStart: ['',Validators.required],
           timeStop:['',Validators.required],
           price:['',Validators.required],
           URLVideo:['',Validators.required],
           address:['',Validators.required],
           addressDetail:['',Validators.required],
-          eventDetail:['',Validators.required]
+          showDetail:['',Validators.required]
       });
 
       if (!this.isAddMode) {
         this.eventItem = this.apiService.getEventById(this.id);
         this.form.patchValue({
-          firstName:this.eventItem.title,
-          lastName:this.eventItem.artist,
+          title:this.eventItem.title,
+          artist:this.eventItem.artist,
           price:this.eventItem.price,
           URLVideo:this.eventItem.id,
           address:this.eventItem.address,
           addressDetail:this.eventItem.addressDetail,
-          eventDetail:this.eventItem.showDetail,
+          showDetail:this.eventItem.showDetail,
 
         });
         console.log(this.eventItem);
@@ -76,28 +75,18 @@ export class AddEventItemComponent implements OnInit {
 
       // this.loading = true;
       // if (this.isAddMode) {
-          this.createUser();
+          this.createEvent();
       // } else {
       //     this.updateUser();
       // }
   }
 
-  private createUser() {
+  private createEvent() {
     this.alertService.success('Event added successfully', { keepAfterRouteChange: true });
     this.router.navigate(['../'], { relativeTo: this.route });
-    // TODO CREATE 
-      // this.accountService.register(this.form.value)
-      //     .pipe(first())
-      //     .subscribe({
-      //         next: () => {
-      //             this.alertService.success('User added successfully', { keepAfterRouteChange: true });
-      //             this.router.navigate(['../'], { relativeTo: this.route });
-      //         },
-      //         error: error => {
-      //             this.alertService.error(error);
-      //             this.loading = false;
-      //         }
-      //     });
+    console.log("ADD ITEM");
+    console.log(this.form.value);
+    this.apiService.addEvent(this.form.value).subscribe();
   }
 
 }

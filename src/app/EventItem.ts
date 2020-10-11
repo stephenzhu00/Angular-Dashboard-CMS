@@ -7,7 +7,7 @@ export interface EventItem{
     price:number;
     address:string;
     addressDetail:string;
-    showDetail:string;
+    showDetail:string; 
     artist:string;
     timeStop:string;
 }

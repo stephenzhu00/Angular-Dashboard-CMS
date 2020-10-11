@@ -33,7 +33,6 @@ export class RequestBandComponent implements AfterViewInit {
   displayedColumns: string[] = ['position', 'name', 'bandName','createdDate','expiredDate', 'status'];
   dataSource=null;
   request_list = this.apiService.getRequests().subscribe((data)=>{
-    console.log(data);
     this.dataSource = data;
   });
   // dataSource = new MatTableDataSource(this.request_list);
@@ -49,21 +48,3 @@ export class RequestBandComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 }
-// export class RequestBandComponent implements OnInit,AfterViewInit {
-//   requests_list;
-//   displayedColumns:string[];
-//   dataSource =null;
-//   constructor(private apiService:ApiServicesService) {
-//     this.displayedColumns = ['position', 'name', 'weight', 'symbol'];
-//     this.dataSource = ELEMENT_DATA;
-//    }
-//   @ViewChild(MatSort) sort: MatSort;
-
-//   ngAfterViewInit() {
-//     this.dataSource.sort = this.sort;
-//   }
-//   ngOnInit(): void {
-//     this.requests_list = this.apiService.getRequests();
-//   }
-
-// }

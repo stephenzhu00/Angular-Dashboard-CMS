@@ -25,16 +25,27 @@ export class ApiServicesService {
   }
 
   getEvents(){
-    return this.httpClient.get('http://localhost:8085/hack');
+    return this.httpClient.get('http://localhost:8080/show/');
   }
   getEventById(eventId){
-    return this.httpClient.get('http://localhost:8085/hack/' +(eventId -1));
+    return this.httpClient.get('http://localhost:8080/show/'+eventId);
   }
   getRequests(){
-    return this.httpClient.get('http://localhost:8085/request');
+    return this.httpClient.get('http://localhost:8080/quotation');
   }
 
   addEvent(eventItem:EventItem):Observable<EventItem>{
-    return this.httpClient.post<EventItem>("http://localhost:8085/addEvents",eventItem,httpOptions).pipe();
+    console.log("GOINT TO DAY");
+    return this.httpClient.post<EventItem>("http://localhost:8080/addEvent",eventItem,httpOptions).pipe();
+  }
+
+  deleteEvent(id):Observable<{}>{
+    console.log(id);
+    return this.httpClient.delete("http://localhost:8080/delete/"+id).pipe();
+  }
+  updateEvent(id:string,eventItem:EventItem):Observable<EventItem>{
+    console.log("Update with"+id);
+    console.log(eventItem);
+    return this.httpClient.put<EventItem>("http://localhost:8080/update/"+id, eventItem, httpOptions).pipe();
   }
 }

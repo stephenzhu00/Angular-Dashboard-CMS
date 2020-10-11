@@ -33,8 +33,8 @@ export class UpdateEventItemComponent implements OnInit {
       this.isAddMode = !this.id;
 
       this.form = this.formBuilder.group({
-          firstName: ['', Validators.required],
-          lastName: ['', Validators.required],
+          eventTitle: ['', Validators.required],
+          eventArtist: ['', Validators.required],
           timeStart: ['',Validators.required],
           timeStop:['',Validators.required],
           price:['',Validators.required],
@@ -50,8 +50,8 @@ export class UpdateEventItemComponent implements OnInit {
           this.eventItem = data;
           console.log(this.eventItem);
           this.form.patchValue({
-            firstName:this.eventItem.title,
-            lastName:this.eventItem.artist,
+            eventTitle:this.eventItem.title,
+            eventArtist:this.eventItem.artist,
             price:this.eventItem.price,
             URLVideo:this.eventItem.id,
             address:this.eventItem.address,
@@ -60,7 +60,6 @@ export class UpdateEventItemComponent implements OnInit {
   
           });
         });
-        // console.log(this.eventItem);
       }
   }
 
@@ -69,7 +68,7 @@ export class UpdateEventItemComponent implements OnInit {
 
   onSubmit() {
       this.submitted = true;
-
+      console.log("SUBMITTED31");
       // reset alerts on submit
       this.alertService.clear();
 
@@ -82,8 +81,9 @@ export class UpdateEventItemComponent implements OnInit {
       this.updateUser();
   }
   private updateUser() {
-    // TODO SOON TO BE ADD
     this.alertService.success('Update successful', { keepAfterRouteChange: true });
     this.router.navigate(['../../'], { relativeTo: this.route });
+    console.log(this.form.value);
+    this.apiService.updateEvent(this.form.value.id, this.form.value).subscribe();
   }
 }

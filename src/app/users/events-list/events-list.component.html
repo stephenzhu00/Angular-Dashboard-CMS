@@ -15,7 +15,7 @@
             <td>{{item.timeStart}} - {{item.timeStop}}</td>
             <td>{{item.artist}}</td>
             <td style="white-space: nowrap">
-                <a routerLink="update/{{item.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <a routerLink="{{item.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
                 <button (click)="deleteItem(item.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="item.isDeleting">
                     <span *ngIf="item.isDeleting" class="spinner-border spinner-border-sm"></span>
                     <span *ngIf="!item.isDeleting">Delete</span>

@@ -24,11 +24,8 @@ export class EventsListComponent implements OnInit {
   }
 
   deleteItem(id: string) {
-      // const user = this.users.find(x => x.id === id);
-      // user.isDeleting = true;
-      // this.accountService.delete(id)
-      //     .pipe(first())
-      //     .subscribe(() => this.users = this.users.filter(x => x.id !== id));
+    console.log("DElete");
+    this.apiService.deleteEvent(id).subscribe();
   }
 
 }

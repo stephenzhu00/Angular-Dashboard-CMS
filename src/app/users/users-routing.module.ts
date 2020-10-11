@@ -18,7 +18,7 @@ const routes: Routes = [
             { path: 'edit/:id', component: AddEditComponent },
             { path: 'events', component:EventsListComponent},
             { path: 'events/add',component:AddEventItemComponent},
-            { path: 'events/update/:id',component:UpdateEventItemComponent},
+            { path: 'events/:id',component:UpdateEventItemComponent},
             { path: 'request',component:RequestBandComponent}
         ]
     }
