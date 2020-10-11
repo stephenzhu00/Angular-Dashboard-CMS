@@ -16,18 +16,33 @@
             </div>
         </div>
     </div>
-    <!-- EDIT -->
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="date">Date</label>
+            <input type="date" formControlName="date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.date.errors }" />
+            <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                <div *ngIf="f.date.errors.required">Date is required</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="day">Day</label>
+            <input type="text" formControlName="day" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.day.errors }" />
+            <div *ngIf="submitted && f.day.errors" class="invalid-feedback">
+                <div *ngIf="f.day.errors.required">Day is required</div>
+            </div>
+        </div>
+    </div>
     <div class="form-row">
         <div class="form-group col">
             <label for="timeStart">Time Start</label>
-            <input type="datetime-local" formControlName="timeStart" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.timeStart.errors }" />
+            <input type="time" formControlName="timeStart" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.timeStart.errors }" />
             <div *ngIf="submitted && f.timeStart.errors" class="invalid-feedback">
                 <div *ngIf="f.timeStart.errors.required">Time Start is required</div>
             </div>
         </div>
         <div class="form-group col">
             <label for="timeStop">Time Stop</label>
-            <input type="datetime-local" formControlName="timeStop" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.timeStop.errors }" />
+            <input type="time" formControlName="timeStop" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.timeStop.errors }" />
             <div *ngIf="submitted && f.timeStop.errors" class="invalid-feedback">
                 <div *ngIf="f.timeStop.errors.required">Time Stop is required</div>
             </div>
@@ -42,10 +57,10 @@
             </div>
         </div>
         <div class="form-group col">
-            <label for="URLVideo">URL Video</label>
-            <input type="text" formControlName="URLVideo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.URLVideo.errors }" />
-            <div *ngIf="submitted && f.URLVideo.errors" class="invalid-feedback">
-                <div *ngIf="f.URLVideo.errors.required">URLVideo is required</div>
+            <label for="showPicture">URL Picture</label>
+            <input type="text" formControlName="showPicture" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.showPicture.errors }" />
+            <div *ngIf="submitted && f.showPicture.errors" class="invalid-feedback">
+                <div *ngIf="f.showPicture.errors.required">URL Picture is required</div>
             </div>
         </div>
     </div>
@@ -73,7 +88,7 @@
             <label for="showDetail">Event Detail</label>
             <input type="text" formControlName="showDetail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.showDetail.errors }" />
             <div *ngIf="submitted && f.showDetail.errors" class="invalid-feedback">
-                <div *ngIf="f.showDetail.errors.required">showDetail is required</div>
+                <div *ngIf="f.showDetail.errors.required">Event Detail is required</div>
             </div>
         </div>
        

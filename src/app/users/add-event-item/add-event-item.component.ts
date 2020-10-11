@@ -29,10 +29,12 @@ export class AddEventItemComponent implements OnInit {
       this.form = this.formBuilder.group({
           title: ['', Validators.required],
           artist: ['', Validators.required],
+          date:['', Validators.required],
+          day:['', Validators.required],
           timeStart: ['',Validators.required],
           timeStop:['',Validators.required],
           price:['',Validators.required],
-          URLVideo:['',Validators.required],
+          showPicture:['',Validators.required],
           address:['',Validators.required],
           addressDetail:['',Validators.required],
           showDetail:['',Validators.required]
@@ -44,10 +46,23 @@ export class AddEventItemComponent implements OnInit {
   onSubmit() {
       this.submitted = true;
       this.alertService.clear();
+      var tempTimeStart = this.form.value.timeStart+':00';
+      var tempTimeStop = this.form.value.timeStop+':00';
+      this.form.value.timeStart = this.cvtTimeAMPM(tempTimeStart);
+      this.form.value.timeStop = this.cvtTimeAMPM(tempTimeStop);
       if (this.form.invalid) {
           return;
       }
       this.createEvent();
+  }
+
+  public cvtTimeAMPM(tempTime): string{
+    var timeString = tempTime;
+    var H = +timeString.substr(0, 2);
+    var h = H % 12 || 12;
+    var ampm = (H < 12 || H === 24) ? "AM" : "PM";
+    timeString = h + timeString.substr(2, 3) + ampm;
+    return timeString;
   }
 
   private createEvent() {

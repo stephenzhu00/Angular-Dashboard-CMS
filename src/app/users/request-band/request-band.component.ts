@@ -19,7 +19,6 @@ export class RequestBandComponent implements OnInit {
   }
   ngOnInit(): void {
     this.apiService.getRequests().subscribe((data)=>{
-      console.log(data);
       this.dataSource = data;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;

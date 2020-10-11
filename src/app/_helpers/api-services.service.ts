@@ -20,23 +20,23 @@ export class ApiServicesService {
   }
 
   getEvents(){
-    return this.httpClient.get('http://localhost:8080/show/');
+    return this.httpClient.get('http://bebas.monster/show/');
   }
   getEventById(eventId){
-    return this.httpClient.get('http://localhost:8080/show/'+eventId);
+    return this.httpClient.get('http://bebas.monster/show/'+eventId);
   } 
   getRequests(){
-    return this.httpClient.get('http://localhost:8080/quotation');
+    return this.httpClient.get('http://bebas.monster/quotation');
   }
 
   addEvent(eventItem:EventItem):Observable<EventItem>{
-    return this.httpClient.post<EventItem>("http://localhost:8080/show/",eventItem,httpOptions).pipe();
+    return this.httpClient.post<EventItem>("http://bebas.monster/show/",eventItem,httpOptions).pipe();
   }
 
   deleteEvent(id):Observable<{}>{
-    return this.httpClient.delete("http://localhost:8080/delete/"+id).pipe();
+    return this.httpClient.delete("http://bebas.monster/show/"+id).pipe();
   }
   updateEvent(id:string,eventItem:EventItem):Observable<EventItem>{
-    return this.httpClient.put<EventItem>("http://localhost:8080/update/"+id, eventItem, httpOptions).pipe();
+    return this.httpClient.put<EventItem>("http://bebas.monster/show/"+id, eventItem, httpOptions).pipe();
   }
 }

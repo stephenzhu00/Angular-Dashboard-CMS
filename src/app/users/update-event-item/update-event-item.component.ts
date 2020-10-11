@@ -10,10 +10,10 @@ import { ApiServicesService } from '../../_helpers/api-services.service';
   templateUrl: './update-event-item.component.html',
   styleUrls: ['./update-event-item.component.less']
 })
-export class UpdateEventItemComponent implements OnInit {
+export class UpdateEventItemComponent implements OnInit  {
   form: FormGroup;
   id: string;
-  isAddMode: boolean;
+  // isAddMode: boolean;
   loading = false;
   submitted = false;
   eventItem=null;
@@ -29,37 +29,66 @@ export class UpdateEventItemComponent implements OnInit {
 
   ngOnInit() {
       this.id = this.route.snapshot.params['id'];
-      this.isAddMode = !this.id;
-
       this.form = this.formBuilder.group({
-          eventTitle: ['', Validators.required],
-          eventArtist: ['', Validators.required],
-          timeStart: ['',Validators.required],
-          timeStop:['',Validators.required],
-          price:['',Validators.required],
-          URLVideo:['',Validators.required],
-          address:['',Validators.required],
-          addressDetail:['',Validators.required],
-          eventDetail:['',Validators.required]
+        title: ['', Validators.required],
+        artist: ['', Validators.required],
+        date:['', Validators.required],
+        day:['', Validators.required],
+        timeStart: ['',Validators.required],
+        timeStop:['',Validators.required],
+        price:['',Validators.required],
+        showPicture:['',Validators.required],
+        address:['',Validators.required],
+        addressDetail:['',Validators.required],
+        showDetail:['',Validators.required]
       });
+      this.eventItem = this.apiService.getEventById(this.id).subscribe((data)=>{        
+        this.eventItem = data[0];
+        this.form.patchValue({
+          title:this.eventItem.title,
+          artist:this.eventItem.artist,
+          day:this.eventItem.day,
+          date:this.cvtDate(this.eventItem.date),
+          timeStart:this.cvtTime(this.eventItem.timeStart),
+          timeStop:this.cvtTime(this.eventItem.timeStop),
+          price:this.eventItem.price,
+          showPicture:this.eventItem.showPicture,
+          address:this.eventItem.address,
+          addressDetail:this.eventItem.addressDetail,
+          showDetail:this.eventItem.showDetail,
 
-      if (!this.isAddMode) {
-        this.eventItem = this.apiService.getEventById(this.id).subscribe((data)=>{        
-          this.eventItem = data;
-          this.form.patchValue({
-            eventTitle:this.eventItem.title,
-            eventArtist:this.eventItem.artist,
-            price:this.eventItem.price,
-            URLVideo:this.eventItem.id,
-            address:this.eventItem.address,
-            addressDetail:this.eventItem.addressDetail,
-            eventDetail:this.eventItem.showDetail,
-  
-          });
         });
-      }
+      });
+  }
+  public cvtTimeAMPM(tempTime): string{
+    var timeString = tempTime;
+    var H = +timeString.substr(0, 2);
+    var h = H % 12 || 12;
+    var ampm = (H < 12 || H === 24) ? "AM" : "PM";
+    timeString = h + timeString.substr(2, 3) + ampm;
+    return timeString;
   }
 
+  cvtDate(tempDate){
+    var year= tempDate.substr(0,4);
+    var month = tempDate.substr(5,2);
+    var date = tempDate.substr(8,2);
+    return year + "-"+month+"-"+date;
+  }
+  cvtTime(tempTime){
+    var hours = Number(tempTime.match(/^(\d+)/)[1]);
+    var minutes = Number(tempTime.match(/:(\d+)/)[1]);
+    var AP = tempTime.match(/\s(.*)$/);
+    if (!AP) AP = tempTime.slice(-2);
+    else AP=AP[1];
+    if(AP == "PM" && hours<12) hours = hours+12;
+    if(AP == "AM" && hours==12) hours = hours-12;
+    var Hours24 = hours.toString();
+    var Minutes24 = minutes.toString();
+    if(hours<10) Hours24 = "0" + Hours24;
+    if(minutes<10) Minutes24 = "0" + Minutes24;
+    return Hours24 + ":" + Minutes24;
+  }
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
 
@@ -75,6 +104,8 @@ export class UpdateEventItemComponent implements OnInit {
   private updateUser() {
     this.alertService.success('Update successful', { keepAfterRouteChange: true });
     this.router.navigate(['../../'], { relativeTo: this.route });
-    this.apiService.updateEvent(this.form.value.id, this.form.value).subscribe();
+    this.form.value.timeStart = this.cvtTimeAMPM(this.form.value.timeStart);
+    this.form.value.timeStop = this.cvtTimeAMPM(this.form.value.timeStop);
+    this.apiService.updateEvent(this.id, this.form.value).subscribe();
   }
 }
