@@ -9,7 +9,7 @@ import {MatPaginator} from '@angular/material/paginator';
   styleUrls: ['./request-band.component.less']
 })
 export class RequestBandComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'bandName','createdDate', 'status'];
+  displayedColumns: string[] = ['id', 'name', 'bandName','genre', 'reason','action'];
   dataSource= null;
 
   @ViewChild(MatSort) sort: MatSort;
@@ -23,5 +23,8 @@ export class RequestBandComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
+  }
+  acceptReq(requestItem){
+    this.apiService.deleteRequest(requestItem.id).subscribe();
   }
 }
